@@ -1,0 +1,10 @@
+
+SET(CMAKE_LINKER_FLAGS "--static -lm")
+add_executable(alloc alloc_100m.c)
+add_executable(fork fork.c)
+add_executable(pthread_test pthread_test.c)
+target_link_libraries(pthread_test pthread)
+add_executable(sleep sleep.c)
+add_executable(localtime localtime.cpp)
+add_executable(time time.cpp)
+add_executable(pid pid.c)
