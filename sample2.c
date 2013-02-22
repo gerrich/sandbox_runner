@@ -96,13 +96,15 @@ main(int argc, const char* argv[])
         return EX_DATAERR;
     }
     result_t res = *sandbox_execute(&msb.sbox);
-    /* verbose statistics */
-    fprintf(stderr, "result: %s\n", result_name[res]);
-    fprintf(stderr, "cpu: %ldms\n", probe(&msb.sbox, P_CPU));
-    fprintf(stderr, "mem: %ldkB\n", probe(&msb.sbox, P_MEMORY));
+    if (res != S_RESULT_OK) {
+      /* verbose statistics */
+      fprintf(stderr, "result: %s\n", result_name[res]);
+      fprintf(stderr, "cpu: %ldms\n", probe(&msb.sbox, P_CPU));
+      fprintf(stderr, "mem: %ldkB\n", probe(&msb.sbox, P_MEMORY));
+    }
     /* destroy sandbox instance */
     sandbox_fini(&msb.sbox);
-    return EX_OK;
+    return (res == S_RESULT_OK) ? EX_OK : 1;
 }
 
 /* struct timespec to msec conversion */
