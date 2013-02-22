@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ulimit -c0 -l0 -t1 -u1
+
+exec "$@"
